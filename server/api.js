@@ -13,10 +13,8 @@ app.get('/users/:userid', (req, res)=>{
     mongoClient.connect(conString).then(clientObj=>{
          var database = clientObj.db("To-Do");
          database.collection('users').findOne({user_id:req.params.userid}).then(user=>{
-
                 res.send(user);
                 res.end();
-
          })
     });
 });
@@ -112,7 +110,6 @@ app.delete('/delete-appointment/:id', (req, res)=>{
         });
    });
 });
-
 
 app.listen(5000)
 console.log(`server Started http://127.0.0.1:5000`)

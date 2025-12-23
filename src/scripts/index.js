@@ -204,19 +204,25 @@ $(function(){
        LoadDashboard();
     })
  
-    $(document).on('click', '#btnDelete' , (e) =>{
-        
-        var choice = confirm('Are you sure you want to delete this appointment?');
-          if(choice){
-                    $.ajax({
-                    method : 'delete',
-                    url : `http://127.0.0.1:5000/delete-appointment/${e.target.value}`,
-                    success : () => {
-                    }
-                })
-            }
+   $(document).on('click', '#btnDelete', function () {
+
+    const appointmentId = this.value; // ✅ always correct
+
+    const choice = confirm('Are you sure you want to delete this appointment?');
+    if (!choice) return;
+
+    $.ajax({
+        method: 'delete',
+        url: `http://127.0.0.1:5000/delete-appointment/${appointmentId}`,
+        success: () => {
             alert('Appointment Deleted.');
-            LoadDashboard();     
-    })
+            LoadDashboard(); // ✅ reload AFTER delete
+        },
+        error: () => {
+            alert('Delete failed');
+        }
+    });
+});
+
     
 })
